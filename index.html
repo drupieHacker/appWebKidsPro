@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Título de la página</title>  
+  <meta charset="UTF-8">
+
+<style>
+    *{
+        padding: 0;
+        margin: 0%;
+        box-sizing: border-box;
+    }
+    .container{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
+  .contenedor{
+    width: 176px;
+    height: 46px;
+   padding: 10px;
+ background-image:url('sprites/start.png');
+ background-size: 100% 100%;
+    display: flex;
+    justify-content: space-between;
+    cursor:pointer;
+  }
+  .contenedor:hover{
+    box-shadow: 3px 3px 15px 4px #ccc;
+  }
+  .contenedor2{
+    width: 176px;
+    height: 46px;
+   padding: 10px;
+ background-image:url('sprites/start.png');
+ background-size: 100% 100%;
+    display: flex;
+    justify-content: space-between;
+    cursor:pointer;
+  }
+  .contenedor2:hover{
+    box-shadow: 3px 3px 15px 4px #ccc;
+  }
+  .contenedor2 .nro1{
+    width: 20px;
+    height: 10px;
+    background-color: #fafafa;
+  }
+  .contenedor2 .nro2{
+    width: 20px;
+    height: 10px;
+    background-color: #fafafa;
+  }
+#recuadro{
+    width: 100px;
+    height: 15px;
+    background-color: #fafafa;
+}
+.console{
+    width: 450px;
+    height: 300px;
+  
+ 
+    background-color: #bdc3c7;
+    border-radius: 10px;
+}
+.canva{
+    width: 500px;
+    height: 500px;
+    background-color: #d35400;
+    padding: 10px;
+    scroll-behavior: auto;
+}
+.tools{
+    width: 200px;
+    height: 400px;
+    background-color: #8e44ad;
+    padding: 10px;
+}
+.console{
+    width: 400px;
+    height: 400px;
+    padding: 10px;
+
+}
+button{
+    background-color: #16a085;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fafafa;
+    cursor: pointer;
+}
+</style>  
+
+<script>
+    window.addEventListener('load', inicio, false);
+
+    function inicio() {
+        document.getElementById('nro1').addEventListener('dragstart', drag, false);
+        document.getElementById('nro2').addEventListener('dragstart', drag, false);
+
+        document.getElementById('palabra1').addEventListener('dragstart', drag, false);
+        document.getElementById('palabra2').addEventListener('dragstart', drag, false);
+        document.getElementById('palabra3').addEventListener('dragstart', drag, false);
+        document.getElementById('palabra4').addEventListener('dragstart', drag, false);  
+        document.getElementById('contenedor').addEventListener('dragstart', drag, false);    
+        document.getElementById('contenedor2').addEventListener('dragstart', drag, false); 
+        document.getElementById('recuadro').addEventListener('dragover', permitirDrop, false);        
+        document.getElementById('recuadro').addEventListener('drop', drop, false);
+        document.getElementById('nro1').addEventListener('dragover', permitirDrop, false);        
+        document.getElementById('nro1').addEventListener('drop', drop, false);
+        document.getElementById('nro2').addEventListener('dragover', permitirDrop, false);        
+        document.getElementById('nro2').addEventListener('drop', drop, false);
+        document.getElementById('canva').addEventListener('dragover', permitirDrop, false);        
+        document.getElementById('canva').addEventListener('drop', drop, false); 
+        document.getElementById('tools').addEventListener('dragover', permitirDrop, false);        
+        document.getElementById('tools').addEventListener('drop', drop, false);               
+    }
+    
+    function drag(ev)
+    {
+        ev.dataTransfer.setData("Text",ev.target.id);
+    }    
+    
+    function drop(ev)
+    {
+        ev.preventDefault();
+        var dato=ev.dataTransfer.getData("Text");
+        ev.target.appendChild(document.getElementById(dato));
+    }  
+
+    function permitirDrop(ev)
+    {
+        ev.preventDefault();
+    }
+   
+    function console(){
+        let r=document.getElementById("recuadro").innerHTML;
+        let console=document.getElementById('console');
+       
+        let nro1=document.getElementById("nro1").textContent;
+        let nro2=document.getElementById("nro2").textContent;
+        num1=parseFloat(nro1)+parseFloat(nro2);
+
+        console.innerHTML=r+num1;
+    }
+    function clean(){
+        let console=document.getElementById('console');
+        console.innerHTML=" ";
+    }
+</script>
+
+</head>
+<body>
+ <div class="container">
+    <div class="tools" id="tools">
+        <div id="palabras">
+            <p id="palabra1" draggable="true">hello world </p>
+            <p id="nro1" draggable="true">5</p>
+            <p id="nro2" draggable="true">2</p>
+            <input type="text" id="palabra2" draggable="true" >
+            <input type="text" id="palabra3" draggable="true">
+            <input type="text" id="palabra4" draggable="true" >  
+          </div>
+          <div class="contenedor" id="contenedor" draggable="true">
+            <label for="">Print</label>
+            <div id="recuadro" >
+            </div>
+          </div>
+          <div class="contenedor2" id="contenedor2" draggable="true">
+            <label for="">Sum</label>
+            <div id="nro1" class="nro1"></div>
+            <div id="nro2" class="nro2"></div>
+
+          </div>
+      </div>
+      <div class="canva" id="canva">
+      </div>
+      <div class="button">
+        <button onclick="console()">RUN</button>
+        <button onclick="clean()">Clean</button>
+      </div>
+      <div class="console" id="console">
+      </div> 
+ </div>
+</body>
+</html>
